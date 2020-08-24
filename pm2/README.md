@@ -1,3 +1,4 @@
 `bash
-$ autocannon -c 911 -d 22 http://localhost:80
+$ docker-compose up --build
+$ autocannon -c 111 -d 11 http://localhost:80
 `
