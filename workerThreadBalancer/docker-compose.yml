@@ -1,0 +1,29 @@
+version: '2.4'
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: development
+    image: workerThreadBalancer
+    container_name: workerThreadBalancer
+    restart: always
+    ports:
+      - "8011:8011"
+      - "8012:8012"
+      - "8013:8013"
+      - "8014:8014"
+    cpus: 4
+  haproxy:
+    build:
+      context: ./haproxy
+      dockerfile: ./Dockerfile
+    image: workerThreadBalancerHaproxy
+    container_name: workerThreadBalancerHaproxy
+    depends_on:
+      - server
+    ports:
+      - "81:81"
+    restart: always
+    cpus: 1
